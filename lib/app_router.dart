@@ -1,0 +1,86 @@
+import 'package:flutter/material.dart';
+
+import 'screens/role_selection_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/signup_screen.dart';
+import 'screens/main_nav_shell.dart';
+import 'screens/workshop_details_screen.dart';
+import 'models/workshop.dart';
+
+class Routes {
+  static const roleSelection = '/';
+  static const login = '/login';
+  static const signup = '/signup';
+  static const shell = '/shell';
+  static const workshopDetails = '/workshop-details';
+  static const hostVerifyPlaceholder = '/host-verify';
+}
+
+class LoginArgs {
+  final UserRole role;
+  const LoginArgs(this.role);
+}
+
+class SignupArgs {
+  final UserRole role;
+  const SignupArgs(this.role);
+}
+
+class WorkshopDetailsArgs {
+  final Workshop workshop;
+  const WorkshopDetailsArgs(this.workshop);
+}
+
+class AppRouter {
+  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case Routes.roleSelection:
+        return MaterialPageRoute(builder: (_) => const RoleSelectionScreen());
+
+      case Routes.login: {
+        final args = settings.arguments as LoginArgs?;
+        return MaterialPageRoute(
+          builder: (_) => LoginScreen(role: args?.role ?? UserRole.client),
+        );
+      }
+
+      case Routes.signup: {
+        final args = settings.arguments as SignupArgs?;
+        return MaterialPageRoute(
+          builder: (_) => SignupScreen(role: args?.role ?? UserRole.client),
+        );
+      }
+
+      case Routes.shell:
+        return MaterialPageRoute(builder: (_) => const MainNavShell());
+
+      case Routes.workshopDetails: {
+        final args = settings.arguments as WorkshopDetailsArgs;
+        return MaterialPageRoute(
+          builder: (_) => WorkshopDetailsScreen(workshop: args.workshop),
+        );
+      }
+
+      case Routes.hostVerifyPlaceholder:
+        return MaterialPageRoute(
+          builder: (_) => const Scaffold(
+            body: SafeArea(
+              child: Center(
+                child: Text(
+                  'Host verification screen (friend will implement)',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+        );
+
+      default:
+        return MaterialPageRoute(
+          builder: (_) => const Scaffold(
+            body: SafeArea(child: Center(child: Text('Route not found'))),
+          ),
+        );
+    }
+  }
+}

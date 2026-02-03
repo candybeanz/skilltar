@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "477111212966",
+    "project_id": "skilltar-2435",
+    "storage_bucket": "skilltar-2435.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477111212966:android:bc4542816be253ce474d67",
+        "android_client_info": {
+          "package_name": "com.example.assign"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFvlmlrmIw-goJfTvFujlwWBIwb15OLKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
