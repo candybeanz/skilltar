@@ -57,7 +57,7 @@ class AppRouter {
       case Routes.workshopDetails: {
         final args = settings.arguments as WorkshopDetailsArgs;
         return MaterialPageRoute(
-          builder: (_) => WorkshopDetailsScreen(workshop: args.workshop),
+          builder: (_) => WorkshopDetailsScreen(workshopId: args.workshop.id),
         );
       }
 
