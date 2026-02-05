@@ -157,23 +157,6 @@ Widget _bulletList(List<String> items) {
   );
 }
 
-String _fmtDate(DateTime d) {
-  const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  final wd = weekdays[d.weekday - 1];
-  final mo = months[d.month - 1];
-  final day = d.day.toString().padLeft(2, '0');
-  return '$wd, $day $mo';
-}
-
-String _fmtTime(DateTime d) {
-  final h = d.hour;
-  final m = d.minute.toString().padLeft(2, '0');
-  final suffix = h >= 12 ? 'PM' : 'AM';
-  final hh = (h % 12 == 0) ? 12 : (h % 12);
-  return '$hh:$m $suffix';
-}
-
 Future<void> _openMap(BuildContext context, WorkshopPlaceInfo place) async {
   final uri = Uri.parse('https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}');
 
@@ -185,67 +168,6 @@ Future<void> _openMap(BuildContext context, WorkshopPlaceInfo place) async {
       const SnackBar(content: Text('Could not open map')),
     );
   }
-}
-
-Future<void> _confirmAndBook(BuildContext context, Workshop workshop, WorkshopSlot slot) async {
-  final store = SkilltarStore.I;
-  final creditsNow = store.credits.value;
-  final cost = workshop.creditsRequired;
-
-  final ok = await showDialog<bool>(
-    context: context,
-    builder: (_) => AlertDialog(
-      title: const Text('Confirm booking'),
-      content: Text(
-        'Book "${workshop.title}"\n'
-        '${_fmtDate(slot.start)} • ${_fmtTime(slot.start)}\n\n'
-        'Cost: $cost credits\n'
-        'Your credits: $creditsNow',
-      ),
-      actions: [
-        TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
-        ElevatedButton(onPressed: () => Navigator.pop(context, true), child: const Text('Book')),
-      ],
-    ),
-  );
-
-  if (ok != true) return;
-
-  final result = store.bookSlot(workshopId: workshop.id, start: slot.start);
-  if (!context.mounted) return;
-
-  switch (result) {
-  case BookResult.success:
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Booked! Credits deducted ✅')),
-    );
-    break;
-
-  case BookResult.alreadyBooked:
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('You already booked this slot ✅')),
-    );
-    break;
-
-  case BookResult.insufficientCredits:
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Not enough credits 😭')),
-    );
-    break;
-
-  case BookResult.full:
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('That slot is full. Try another one.')),
-    );
-    break;
-
-  case BookResult.notFound:
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Slot not found.')),
-    );
-    break;
-}
-
 }
 
 class WorkshopDetailsScreen extends StatelessWidget {

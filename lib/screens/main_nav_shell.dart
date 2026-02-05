@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'explore_screen.dart';
-import 'placeholders.dart';
+import 'search_screen.dart';
+import 'my_bookings_screen.dart';
+import 'profile_screen.dart';
 
 class MainNavShell extends StatefulWidget {
   const MainNavShell({super.key});
@@ -13,10 +15,10 @@ class _MainNavShellState extends State<MainNavShell> {
   int _index = 0;
 
   final _pages = const [
-    ExploreScreen(),          // Screen 4.1 (your part)
-    SearchPlaceholderScreen(),// friend will replace
-    BookingsPlaceholderScreen(),// friend will replace
-    ProfilePlaceholderScreen(),// friend will replace
+    ExploreScreen(),       // Screen 4.1
+    SearchScreen(),        // Screen 5 
+    MyBookingsScreen(),    // Screen 6 
+    ProfileScreen(),       // Screen 7 
   ];
 
   @override
