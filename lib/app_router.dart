@@ -5,6 +5,8 @@ import 'screens/login_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/main_nav_shell.dart';
 import 'screens/workshop_details_screen.dart';
+import 'screens/verify_account_screen.dart';
+import 'screens/new_workshop_listing_screen.dart';
 import 'models/workshop.dart';
 
 class Routes {
@@ -14,6 +16,7 @@ class Routes {
   static const shell = '/shell';
   static const workshopDetails = '/workshop-details';
   static const hostVerifyPlaceholder = '/host-verify';
+  static const newWorkshopListing = '/new-workshop-listing';
 }
 
 class LoginArgs {
@@ -62,18 +65,10 @@ class AppRouter {
       }
 
       case Routes.hostVerifyPlaceholder:
-        return MaterialPageRoute(
-          builder: (_) => const Scaffold(
-            body: SafeArea(
-              child: Center(
-                child: Text(
-                  'Host verification screen (friend will implement)',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-        );
+        return MaterialPageRoute(builder: (_) => const VerifyAccountScreen());
+
+      case Routes.newWorkshopListing:
+        return MaterialPageRoute(builder: (_) => const NewWorkshopListingScreen());
 
       default:
         return MaterialPageRoute(
