@@ -7,6 +7,7 @@ import 'screens/main_nav_shell.dart';
 import 'screens/workshop_details_screen.dart';
 import 'screens/verify_account_screen.dart';
 import 'screens/new_workshop_listing_screen.dart';
+import 'screens/host_dashboard_screen.dart';
 import 'models/workshop.dart';
 
 class Routes {
@@ -15,6 +16,7 @@ class Routes {
   static const signup = '/signup';
   static const shell = '/shell';
   static const workshopDetails = '/workshop-details';
+  static const hostDashboard = '/host-dashboard';
   static const hostVerifyPlaceholder = '/host-verify';
   static const newWorkshopListing = '/new-workshop-listing';
 }
@@ -63,6 +65,9 @@ class AppRouter {
           builder: (_) => WorkshopDetailsScreen(workshopId: args.workshop.id),
         );
       }
+
+      case Routes.hostDashboard:
+        return MaterialPageRoute(builder: (_) => const HostDashboardScreen());
 
       case Routes.hostVerifyPlaceholder:
         return MaterialPageRoute(builder: (_) => const VerifyAccountScreen());
