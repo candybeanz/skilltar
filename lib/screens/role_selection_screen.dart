@@ -80,7 +80,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                         arguments: const LoginArgs(UserRole.client),
                       );
                     } else {
-                      Navigator.pushNamed(context, Routes.hostVerifyPlaceholder);
+                      Navigator.pushNamed(context, Routes.hostDashboard);
                     }
                   },
                   child: const Text('Continue'),
